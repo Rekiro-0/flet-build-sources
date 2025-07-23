@@ -16,7 +16,7 @@ Repository = "https://github.com/flet-dev/flet"
 Documentation = "https://flet.dev/docs"
 
 [tool.poetry.dependencies]
-flet = { version = "0.1.0" }
+flet = { version = "0.28.3" }
 watchdog = "^4.0.0"
 packaging = "*"
 qrcode = "^7.4.2"
