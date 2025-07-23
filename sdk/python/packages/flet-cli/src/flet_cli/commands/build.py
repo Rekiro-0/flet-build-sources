@@ -1755,6 +1755,16 @@ class Command(BaseCommand):
         if platform_dependencies:
             toml_dependencies.extend(platform_dependencies)
 
+        # replace toml dependencies with git sources from [tool.uv.sources]
+            uv_sources = self.get_pyproject("tool.uv.sources")
+            for i, toml_dep in enumerate(toml_dependencies):
+                if toml_dep in uv_sources:
+                    # now only "git" sources supported
+                    # (but without options such as tag, branch, etc)
+                    if "git" in uv_sources[toml_dep]:
+                        git_source = uv_sources[toml_dep]["git"]
+                        toml_dependencies[i] = f"git+{git_source}"
+
         dev_packages_configured = False
         if len(toml_dependencies) > 0:
             dev_packages = (
